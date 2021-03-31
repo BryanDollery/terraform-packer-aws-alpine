@@ -1,7 +1,11 @@
 VER=15
 
 build:
-	docker build --tag bryandollery/terraform-packer-aws-alpine:$(VER) .
+	docker image rm hashicorp/packer | true
+	docker image rm hashicorp/terraform | true
+	docker image rm alpine/helm | true
+	docker image rm lachlanevenson/k8s-kubectl | true
+	docker build --no-cache --tag bryandollery/terraform-packer-aws-alpine:$(VER) .
 	docker tag  bryandollery/terraform-packer-aws-alpine:$(VER) bryandollery/terraform-packer-aws-alpine:latest
 
 run:
